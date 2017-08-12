@@ -82,6 +82,13 @@ def setup_tf() {
   }
 }
 
+def tf_init() {
+  stage 'terraform init'
+  sshagent ([gh_credentials_id]) {
+    _sh './bin/terraform init'
+  }
+}
+
 def fetch_modules() {
   stage 'fetch modules'
   sshagent([gh_credentials_id]) {
