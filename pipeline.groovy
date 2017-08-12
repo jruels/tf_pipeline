@@ -138,19 +138,6 @@ def git_checkout() {
   }
 }
 
-def initialize_remote_state() {
-  stage 'initialize remote state'
-  withEnv(["s3_bucket=$s3_bucket","s3_key=$s3_key"]) {
-    _sh '''\
-      ./bin/terraform remote config \
-        -backend=s3 \
-        -backend-config="bucket=${s3_bucket}" \
-        -backend-config="key=${s3_key}/terraform.tfstate" \
-        -backend-config="region=us-east-1" \
-        -backend-config="acl=bucket-owner-full-control"
-    '''.stripIndent()
-  }
-}
 
 def tf_plan(extra_flags='') {
   if (pull_request) {
